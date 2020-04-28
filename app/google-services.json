@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "702935592331",
+    "firebase_url": "https://ktcommunity-5dab1.firebaseio.com",
+    "project_id": "ktcommunity-5dab1",
+    "storage_bucket": "ktcommunity-5dab1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:702935592331:android:78730ce49c39485ca9138e",
+        "android_client_info": {
+          "package_name": "com.mamba.kt_community"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "702935592331-6m9h6mc1bmsfgns2lkqopjo41ii9qt2d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mamba.kt_community",
+            "certificate_hash": "7235fe2a8626d163e1bbe5b40a9747a068606718"
+          }
+        },
+        {
+          "client_id": "702935592331-nb7pjqsgvin6j6gdlf81puodmb8u5clb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAp06R_1MMIkK6b-HTByAoh1rFzKASiJlM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "702935592331-nb7pjqsgvin6j6gdlf81puodmb8u5clb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

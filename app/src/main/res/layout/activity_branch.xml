@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorIris"
+    android:orientation="vertical"
+    tools:context=".BranchActivity">
+
+
+    <TextView
+        android:background="@drawable/title_image"
+        android:layout_width="164dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="238dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/branch_email_login_lyt"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="105dp"
+        android:background="@color/colorWhite"
+        android:layout_width="220dp"
+        android:layout_height="40dp">
+
+        <ImageButton
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="17dp"
+            android:background="@drawable/ic_email_black_48dp"
+            android:layout_width="35.7dp"
+            android:layout_height="35dp"/>
+
+        <TextView
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginBottom="11dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlueberry"
+            android:lineSpacingExtra="6sp"
+            android:text="이메일 로그인"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/branch_register_btn"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="#ffffff"
+        android:letterSpacing="0.2"
+        android:lineSpacingExtra="6sp"
+        android:textStyle="bold"
+        android:gravity="center_horizontal"
+        android:text="회원가입"
+        />
+
+
+
+</LinearLayout>

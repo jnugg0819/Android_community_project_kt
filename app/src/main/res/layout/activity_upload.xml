@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:id="@+id/upload_scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:orientation="vertical">
+
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/upload_viewPager"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <TextView
+                        android:id="@+id/upload_imageview_txt"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="대표 사진을 넣어주세요" />
+
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/upload_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:layout_marginTop="8dp"
+                    android:background="?android:attr/listDivider" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="장르를 선택해주세요"
+                        android:textSize="20sp" />
+
+
+                    <Spinner
+                        android:id="@+id/upload_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+
+                <View
+                    android:id="@+id/divider2"
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:layout_marginTop="8dp"
+                    android:background="?android:attr/listDivider" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="100dp"
+                        android:background="@drawable/layout_shape_upload"
+                        android:elevation="20dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/upload_get_youtube_txtv"
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="25dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginRight="4dp"
+                            android:text="유튜브 영상가져오기(클릭!)"
+                            android:textSize="20sp" />
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp"
+                           >
+
+                            <EditText
+                                android:id="@+id/upload_title_txt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="제목을 설정해주세요"
+                                android:textColor="#333"
+                                android:textSize="15sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp"
+                            >
+
+                            <EditText
+                                android:id="@+id/upload_music_name_txt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="곡 이름..."
+                                android:textColor="@color/colorBlack"
+                                android:textSize="15sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp"
+                          >
+
+                            <EditText
+                                android:id="@+id/upload_singer_name_txt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="가수 이름" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp"
+                          >
+
+                            <EditText
+                                android:id="@+id/upload_singer_related_songs_txt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="관련곡 설정" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp"
+                           >
+
+                            <EditText
+                                android:id="@+id/upload_contents_txt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="내용을 입력해주세요" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <Button
+                            android:id="@+id/upload_share_btn"
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="50dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="70dp"
+                            android:background="@drawable/button_color_upload"
+                            android:text="공유"
+                            android:textSize="20sp" />
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/upload_gallery_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:src="@drawable/ic_add_a_photo_white_48dp"
+            android:backgroundTint="@color/colorBlack"
+            android:layout_margin="16dp" />
+
+    </FrameLayout>
+
+
+</LinearLayout>

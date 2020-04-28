@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/home_fm_layout_tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabGravity="center"
+        app:tabMode="fixed"
+        app:tabTextColor="@color/colorBlack"
+        app:tabSelectedTextColor="@color/colorIris"
+        app:tabIndicator="@color/colorPurplePrimary" />
+
+    <FrameLayout
+        android:layout_marginBottom="70dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/home_fm_pager_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/home_fm_fa_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:src="@drawable/ic_add_white_48dp"
+            android:backgroundTint="@color/colorBlack"
+            android:layout_margin="16dp" />
+    </FrameLayout>
+
+</LinearLayout>
