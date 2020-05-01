@@ -125,7 +125,7 @@ class MasterReplyAdapter(var context: Context) :
 
 
             Glide.with(replyView.context)
-                .load("http://192.168.35.50:8080/getMyPageImage?creatorId=" + item.creatorId)
+                .load("http://192.168.35.30:8080/getMyPageImage?creatorId=" + item.creatorId)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
                 .into(userImage)

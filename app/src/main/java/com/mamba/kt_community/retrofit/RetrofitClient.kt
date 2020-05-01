@@ -16,7 +16,7 @@ object RetrofitClient {
         get() {
             if (ourInstance == null)
                 ourInstance = Retrofit.Builder()
-                    .baseUrl("http://34.84.85.113:8090/")
+                    .baseUrl("http://192.168.35.30:8080/")
                     .client(createOkHttpClient())
                     .addConverterFactory(GsonConverterFactory.create())
                     .addConverterFactory(ScalarsConverterFactory.create())
@@ -24,18 +24,6 @@ object RetrofitClient {
                     .build()
             return this.ourInstance
         }
-
-    /*private fun getInstance():Retrofit{
-        if(ourInstance==null)
-            ourInstance=Retrofit.Builder()
-                .baseUrl("http://192.168.35.50:8080/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addConverterFactory(ScalarsConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build()
-
-        return this.ourInstance!!
-    }*/
 
 
 

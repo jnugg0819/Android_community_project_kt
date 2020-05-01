@@ -37,7 +37,7 @@
                 android:layout_marginTop="107dp"
                 android:layout_marginEnd="161dp"
                 android:layout_marginRight="161dp"
-                android:src="@drawable/icons8_persona_de_sexo_masculino_50"
+                android:src="@drawable/ic_person_black_36dp"
                 app:civ_border_color="@color/colorWhite"
                 app:civ_border_width="2dp" />
 

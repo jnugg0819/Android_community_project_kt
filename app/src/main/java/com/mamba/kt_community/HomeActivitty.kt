@@ -38,6 +38,7 @@ class HomeActivitty : AppCompatActivity(), BottomNavigationView.OnNavigationItem
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+
             R.id.tab1 -> {
                 if (homeFragment == null) {
                     homeFragment = HomeFragment()

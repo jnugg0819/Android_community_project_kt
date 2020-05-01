@@ -10,6 +10,7 @@ class HomeFmTabPagerAdapter(private val fm: FragmentManager, private val count: 
 
     private val tabTitle = arrayOf("인기", "최신", "한국/아이돌", "한국/랩&힙합","한국/OST&발라드","해외")
 
+
     private var items = ArrayList<Fragment>()
 
     fun addItem(item: Fragment) {

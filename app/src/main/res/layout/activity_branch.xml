@@ -10,7 +10,7 @@
 
 
     <TextView
-        android:background="@drawable/title_image"
+        android:background="@drawable/title_image2"
         android:layout_width="164dp"
         android:layout_height="60dp"
         android:layout_gravity="center_horizontal"

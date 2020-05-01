@@ -35,7 +35,6 @@ class InnerHomeFirst : Fragment() {
 
         val rootView=inflater.inflate(R.layout.fragment_innter_home_first, container, false)
 
-
         viewModel=activity!!.application!!.let {
             ViewModelProvider(
                 viewModelStore, ViewModelProvider.AndroidViewModelFactory(it)).get(HomeViewModel::class.java)}

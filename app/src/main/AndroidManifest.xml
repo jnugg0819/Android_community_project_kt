@@ -24,7 +24,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".MasterReplyActivity"></activity>
+        <activity android:name=".SlaveReplyActivity"></activity>
+        <activity android:name=".MasterReplyActivity" />
         <activity android:name=".MyPageDetailActivity" />
         <activity android:name=".UploadSearchYoutubePlayerActivity" />
         <activity android:name=".UploadSearchYoutubeActivity" />

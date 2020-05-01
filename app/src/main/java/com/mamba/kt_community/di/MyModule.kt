@@ -4,6 +4,7 @@ import com.mamba.kt_community.Adapter.reply.MasterReplyAdapter
 import com.mamba.kt_community.data.data.DataModel.DataModel
 import com.mamba.kt_community.data.data.DataModel.DataModelImpl
 import com.mamba.kt_community.data.data.viewmodel.MasterReplyViewModel
+import com.mamba.kt_community.data.data.viewmodel.SlaveReplyViewModel
 import com.mamba.kt_community.retrofit.MyAPI
 import com.mamba.kt_community.retrofit.RetrofitClient
 import okhttp3.OkHttpClient
@@ -18,7 +19,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 var retrofitPart= module {
     single<MyAPI>{
         Retrofit.Builder()
-            .baseUrl("http://192.168.35.50:8080/")
+            .baseUrl("http://192.168.35.30:8080/")
             .client(createOkHttpClient())
             .addConverterFactory(GsonConverterFactory.create())
             .addConverterFactory(ScalarsConverterFactory.create())
@@ -40,7 +41,14 @@ var viewModelPart= module {
     }
 }
 
-var myDiModule= listOf(retrofitPart,modelPart,viewModelPart)
+var viewModelPartSlave= module {
+    viewModel{
+        SlaveReplyViewModel(get())
+    }
+}
+
+
+var myDiModule= listOf(retrofitPart,modelPart,viewModelPart,viewModelPartSlave)
 
 
 

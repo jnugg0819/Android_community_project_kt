@@ -31,8 +31,6 @@ import kotlin.system.exitProcess
 
 class AccountFragment : Fragment() {
 
-
-
     private var viewModel:MyPageViewModel?=null
     private var recyclerView: RecyclerView? = null
     var adapter: BoardAdapter?=null
@@ -43,12 +41,6 @@ class AccountFragment : Fragment() {
     private var homeActivitty:HomeActivitty?=null
 
     private lateinit var mypageUserImage:CircleImageView
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("FragmentLife","onResume")
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -100,17 +92,11 @@ class AccountFragment : Fragment() {
     fun getUserImage(){
         //userProfileIamge
         Glide.with(activity!!.applicationContext)
-            .load("http://192.168.35.50:8080/getMyPageImage?creatorId=$currentUserEmail")
+            .load("http://192.168.35.30:8080/getMyPageImage?creatorId=$currentUserEmail")
             .error(R.drawable.ic_person_black_36dp)
             .diskCacheStrategy(DiskCacheStrategy.NONE)
             .skipMemoryCache(true)
             .into(mypageUserImage)
     }
 
-
-
-    override fun onStop() {
-        super.onStop()
-        Log.d("FragmentLife","onStop")
-    }
 }

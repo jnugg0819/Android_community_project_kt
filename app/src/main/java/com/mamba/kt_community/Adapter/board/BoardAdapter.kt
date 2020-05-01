@@ -139,7 +139,7 @@ class BoardAdapter(internal var context: Context) : RecyclerView.Adapter<BoardAd
 
            //user profile image
            Glide.with(cardView.context)
-               .load("http://192.168.35.50:8080/getMyPageImage?creatorId=" + userId.text.toString())
+               .load("http://192.168.35.30:8080/getMyPageImage?creatorId=" + userId.text.toString())
                .error(R.drawable.ic_person_black_36dp)
                .diskCacheStrategy(DiskCacheStrategy.NONE)
                .skipMemoryCache(true)
@@ -151,7 +151,7 @@ class BoardAdapter(internal var context: Context) : RecyclerView.Adapter<BoardAd
            val urlList = ArrayList<String>()
            for (i  in item.fileList!!.indices) {
                urlList.add(
-                   "http://192.168.35.50:8080/timelineGetImage?boardIdx=" + item.boardIdx + "&idx=" + item.fileList!![i].idx
+                   "http://192.168.35.30:8080/timelineGetImage?boardIdx=" + item.boardIdx + "&idx=" + item.fileList!![i].idx
                )
            }
 

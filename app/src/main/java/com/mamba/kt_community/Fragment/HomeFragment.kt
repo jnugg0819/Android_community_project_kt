@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.get
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.mamba.kt_community.Adapter.HomeFmTabPagerAdapter
@@ -20,15 +21,13 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
 
+    private val innerHomeFirst = InnerHomeFirst()
+    private val innerHomeSecond=InnerHomeSecond()
+    private val innerHomeThird=InnerHomeThird()
+    private val innerHomeFourth= InnerHomeFourth()
+    private val innerHomeFifth=InnerHomeFifth()
+    private val innerHomeSixth= InnerHomeSixth()
 
-    companion object{
-        val innerHomeFirst = InnerHomeFirst()
-        val innerHomeSecond = InnerHomeSecond()
-        val innerHomeThird = InnerHomeThird()
-        val innerHomeFourth = InnerHomeFourth()
-        val innerHomeFifth = InnerHomeFifth()
-        val innerHomeSixth = InnerHomeSixth()
-    }
 
     //메인 액티비티
     private var homeAtivity: HomeActivitty? = null

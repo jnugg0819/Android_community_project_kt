@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.mamba.kt_community.Adapter.board.BoardAdapter
-import com.mamba.kt_community.Fragment.AccountFragment
 import com.mamba.kt_community.HomeActivitty
 import com.mamba.kt_community.MyPageDetailActivity
 import com.mamba.kt_community.data.data.mypage.MyPageInfo
@@ -109,32 +108,7 @@ class MyPageViewModel:ViewModel(){
     }
 
 
-    fun getMyPageText(
-        creatorId: String
-    ){
 
-        myAPI.getMyPageText(creatorId).subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object :Observer<MyPageInfo>{
-                override fun onComplete() {
-
-                }
-
-                override fun onSubscribe(d: Disposable) {
-
-                }
-
-                override fun onNext(myPageInfo: MyPageInfo) {
-
-                }
-
-                override fun onError(e: Throwable) {
-
-                }
-
-            })
-
-    }
 
 
 

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">kt_community</string>
+    <string name="app_name">내커뮤니티</string>
 
     <string name="facebook_app_id">597611924431235</string>
     <string name="fb_login_protocol_scheme">fb597611924431235</string>

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -276,13 +277,11 @@ class UploadActivity : AppCompatActivity() {
                 }
                 override fun onNext(uploadResponse: UploadResponse) {
                     if (uploadResponse.response) {
+                        //val view=LayoutInflater.from(this@UploadActivity).inflate(R.)
                         progressDialog!!.dismiss()
-                        val builder = AlertDialog.Builder(applicationContext)
-                        dialog = builder.setMessage("업로드 완료").setPositiveButton("확인", null).create()
-                        dialog!!.show()
-                        val intent = Intent(applicationContext, HomeActivitty::class.java)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                        startActivity(intent)
+
+                        finish()
+
                     } else {
                         val builder = AlertDialog.Builder(applicationContext)
                         dialog = builder.setMessage("업로드 실패!.").setNegativeButton("확인", null).create()

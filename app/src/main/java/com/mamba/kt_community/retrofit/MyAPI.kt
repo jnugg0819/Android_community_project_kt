@@ -4,8 +4,8 @@ import com.mamba.kt_community.data.data.mypage.MyPageInfo
 import com.mamba.kt_community.data.data.reply.Reply
 import com.mamba.kt_community.response.board.BoardResponse
 import com.mamba.kt_community.response.mypage.MyPageResponse
-import com.mamba.kt_community.response.reply.ReplyGetResponse
-import com.mamba.kt_community.response.reply.ReplyPostResponse
+import com.mamba.kt_community.response.mypage.MyPageTextResponse
+import com.mamba.kt_community.response.reply.*
 import com.mamba.kt_community.response.upload.UploadResponse
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -50,12 +50,15 @@ interface MyAPI {
     @GET("timelinesixth")
     fun getTimelineSixth(): Observable<BoardResponse>
 
+
+
+
     //MyPage
     @GET("mypage")
     fun getMypage(@Query("creatorId") creatorId:String):Observable<BoardResponse>
 
     @GET("getMyPageText")
-    fun getMyPageText(@Query("creatorId") creatorId: String): Observable<MyPageInfo>
+    fun getMyPageText(@Query("creatorId") creatorId: String): Observable<MyPageTextResponse>
 
     //ScalarsCOnverterFactory사용
     @Multipart
@@ -69,6 +72,7 @@ interface MyAPI {
     ): Observable<MyPageResponse>
 
 
+
     //MasterReply
     @POST("replyPost")
     @FormUrlEncoded
@@ -79,6 +83,74 @@ interface MyAPI {
 
     @GET("replyGet")
     fun getReply(@Query("boardIdx") boardIdx: Int): Observable<ReplyGetResponse>
+
+    @PUT("replyUpdate")
+    @FormUrlEncoded
+    fun updateThumbsUp(
+        @Field("boardIdx") boardIdx: Int, @Field("masterIdx") masterIdx: Int, @Field(
+            "pressedId"
+        ) pressedId: String, @Field("isPressed") isPressed: Boolean
+    ): Observable<ReplyUpdateResponse>
+
+    @POST("replyPostUserInfo")
+    @FormUrlEncoded
+    fun insertThumbsUpUserInfo(
+        @Field("boardIdx") boardIdx: Int, @Field("masterIdx") masterIdx: Int, @Field(
+            "pressedId"
+        ) pressedId: String
+    ): Observable<ReplyUpdateResponse>
+
+    @DELETE("replyDeleteUserInfo")
+    fun deleteThumbsUpUserInfo(
+        @Query("boardIdx") boardIdx: Int, @Query("masterIdx") masterIdx: Int, @Query(
+            "pressedId"
+        ) pressedId: String
+    ): Observable<ReplyUpdateResponse>
+
+    @GET("replyGetUserInfo")
+    fun selectThumbsUpUserInfo(@Query("boardIdx") boardIdx: Int, @Query("userId") userId: String): Observable<ReplyGetUserInfoResponse>
+
+
+    //SlaveReply
+    @GET("getReplySlave")
+    fun getReplySlave(@Query("boardIdx") boardIdx: Int, @Query("masterIdx") masterIdx: Int): Observable<ReplyGetSlaveResponse>
+
+    @POST("postReplySlave")
+    @FormUrlEncoded
+    fun postReplySlave(
+        @Field("boardIdx") boardIdx: Int, @Field("masterIdx") masterIdx: Int, @Field("creatorId") creatorId: String,
+        @Field("contents") contents: String
+    ): Single<ReplyPostSlaveResponse>
+
+    @GET("replyGetSlaveUserInfo")
+    fun selectThumbsUpSlaveUserInfo(
+        @Query("boardIdx") boardIdx: Int, @Query("masterIdx") masterIdx: Int, @Query(
+            "userId"
+        ) userId: String
+    ): Observable<ReplyGetSlaveUserInfoResponse>
+
+    @PUT("replySlaveUpdate")
+    @FormUrlEncoded
+    fun updateSlaveThumbsUp(
+        @Field("boardIdx") boardIdx: Int, @Field("masterIdx") masterIdx: Int, @Field(
+            "slaveIdx"
+        ) slaveIdx: Int, @Field("pressedId") pressedId: String, @Field("isPressed") isPressed: Boolean
+    ): Observable<ReplyUpdateResponse>
+
+    @POST("replySlavePostUserInfo")
+    @FormUrlEncoded
+    fun insertSlaveThumbsUpUserInfo(
+        @Field("boardIdx") boardIdx: Int, @Field("masterIdx") masterIdx: Int, @Field(
+            "slaveIdx"
+        ) slaveIdx: Int, @Field("pressedId") pressedId: String
+    ): Observable<ReplyUpdateResponse>
+
+    @DELETE("replySlaveDeleteUserInfo")
+    fun deleteSlaveThumbsUpUserInfo(
+        @Query("boardIdx") boardIdx: Int, @Query("masterIdx") masterIdx: Int, @Query(
+            "slaveIdx"
+        ) slaveIdx: Int, @Query("pressedId") pressedId: String
+    ): Observable<ReplyUpdateResponse>
 
 
 }
