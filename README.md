@@ -70,4 +70,4 @@
 
 블로그 링크: https://kanio.tistory.com/
 
-이메일 링크: jgg0819@naver.com
+이메일 링크: jnugg0819@naver.com
