@@ -1,9 +1,14 @@
 package com.mamba.kt_community.data.data.viewmodel
 
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.mamba.kt_community.Adapter.board.BoardAdapter
+import com.mamba.kt_community.HomeActivitty
+import com.mamba.kt_community.response.board.BoardLikeGetUserInfoResponse
+import com.mamba.kt_community.response.board.BoardLikeUpdateResponse
 import com.mamba.kt_community.response.board.BoardResponse
 import com.mamba.kt_community.retrofit.MyAPI
 import com.mamba.kt_community.retrofit.RetrofitClient
@@ -27,6 +32,13 @@ class HomeViewModel:ViewModel(){
 
                 override fun onNext(boardResponse: BoardResponse) {
                     val newBoard = boardResponse.response
+                    for(i in newBoard.indices){
+                        for(j in HomeActivitty.userInfoList.indices){
+                            if (Integer.parseInt(newBoard[i].boardIdx!!) == HomeActivitty.userInfoList[j].boardIdx) {
+                                newBoard[i].isLikeCheck=true
+                            }
+                        }
+                    }
                     adapter.setItems(newBoard)
                     adapter.notifyDataSetChanged()
                 }
@@ -51,6 +63,13 @@ class HomeViewModel:ViewModel(){
 
                 override fun onNext(boardResponse: BoardResponse) {
                     val newBoard = boardResponse.response
+                    for(i in newBoard.indices){
+                        for(j in HomeActivitty.userInfoList.indices){
+                            if (Integer.parseInt(newBoard[i].boardIdx!!) == HomeActivitty.userInfoList[j].boardIdx) {
+                                newBoard[i].isLikeCheck=true
+                            }
+                        }
+                    }
                     adapter.setItems(newBoard)
                     adapter.notifyDataSetChanged()
                 }
@@ -75,6 +94,13 @@ class HomeViewModel:ViewModel(){
 
                 override fun onNext(boardResponse: BoardResponse) {
                     val newBoard = boardResponse.response
+                    for(i in newBoard.indices){
+                        for(j in HomeActivitty.userInfoList.indices){
+                            if (Integer.parseInt(newBoard[i].boardIdx!!) == HomeActivitty.userInfoList[j].boardIdx) {
+                                newBoard[i].isLikeCheck=true
+                            }
+                        }
+                    }
                     adapter.setItems(newBoard)
                     adapter.notifyDataSetChanged()
                 }
@@ -99,6 +125,13 @@ class HomeViewModel:ViewModel(){
 
                 override fun onNext(boardResponse: BoardResponse) {
                     val newBoard = boardResponse.response
+                    for(i in newBoard.indices){
+                        for(j in HomeActivitty.userInfoList.indices){
+                            if (Integer.parseInt(newBoard[i].boardIdx!!) == HomeActivitty.userInfoList[j].boardIdx) {
+                                newBoard[i].isLikeCheck=true
+                            }
+                        }
+                    }
                     adapter.setItems(newBoard)
                     adapter.notifyDataSetChanged()
                 }
@@ -124,6 +157,13 @@ class HomeViewModel:ViewModel(){
 
                 override fun onNext(boardResponse: BoardResponse) {
                     val newBoard = boardResponse.response
+                    for(i in newBoard.indices){
+                        for(j in HomeActivitty.userInfoList.indices){
+                            if (Integer.parseInt(newBoard[i].boardIdx!!) == HomeActivitty.userInfoList[j].boardIdx) {
+                                newBoard[i].isLikeCheck=true
+                            }
+                        }
+                    }
                     adapter.setItems(newBoard)
                     adapter.notifyDataSetChanged()
                 }
@@ -148,6 +188,13 @@ class HomeViewModel:ViewModel(){
 
                 override fun onNext(boardResponse: BoardResponse) {
                     val newBoard = boardResponse.response
+                    for(i in newBoard.indices){
+                        for(j in HomeActivitty.userInfoList.indices){
+                            if (Integer.parseInt(newBoard[i].boardIdx!!) == HomeActivitty.userInfoList[j].boardIdx) {
+                                newBoard[i].isLikeCheck=true
+                            }
+                        }
+                    }
                     adapter.setItems(newBoard)
                     adapter.notifyDataSetChanged()
                 }
@@ -160,6 +207,104 @@ class HomeViewModel:ViewModel(){
                     recyclerView.adapter = adapter
                 }
             })
+    }
+
+    fun updateLike(boardIdx:Int,userId:String,checker:Boolean){
+        myAPI.updateLike(boardIdx,userId,checker)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : io.reactivex.Observer<BoardLikeUpdateResponse> {
+                override fun onComplete() {
+
+                }
+
+                override fun onSubscribe(d: Disposable) {
+                }
+
+                override fun onNext(boardLikeUpdateResponse: BoardLikeUpdateResponse) {
+                    if(boardLikeUpdateResponse.isResponse){
+                        Log.d("BoardLike","좋아요 업데이트 성공")
+                    }
+
+                }
+
+                override fun onError(e: Throwable) {
+
+                }
+
+            })
+    }
+
+    fun insertLikeUserInfo(boardIdx:Int,userId:String){
+        myAPI.insertLikeUserInfo(boardIdx,userId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object :io.reactivex.Observer<BoardLikeUpdateResponse>{
+                override fun onComplete() {
+
+                }
+
+                override fun onSubscribe(d: Disposable) {
+                }
+
+                override fun onNext(boardLikeUpdateResponse: BoardLikeUpdateResponse) {
+                    if(boardLikeUpdateResponse.isResponse){
+                        Log.d("BoardLike","유저정보 집어넣기 성공")
+                    }
+                }
+
+                override fun onError(e: Throwable) {
+                }
+
+            })
+    }
+
+    fun deleteLikeUserInfo(boardIdx:Int,userId:String){
+        myAPI.deleteLikeUserInfo(boardIdx,userId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object :io.reactivex.Observer<BoardLikeUpdateResponse>{
+                override fun onComplete() {
+
+                }
+
+                override fun onSubscribe(d: Disposable) {
+                }
+
+                override fun onNext(boardLikeUpdateResponse: BoardLikeUpdateResponse) {
+                    if(boardLikeUpdateResponse.isResponse){
+                        Log.d("BoardLike","유저정보 삭제 성공")
+                    }
+                }
+
+                override fun onError(e: Throwable) {
+
+                }
+
+            })
+    }
+
+    fun getLikeUserInfo(userId:String){
+        myAPI.selectLikeUserInfo(userId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object :io.reactivex.Observer<BoardLikeGetUserInfoResponse>{
+                override fun onComplete() {
+
+                }
+
+                override fun onSubscribe(d: Disposable) {
+                }
+
+                override fun onNext(boardLikeGetUserInfoResponse: BoardLikeGetUserInfoResponse) {
+                    HomeActivitty.userInfoList=boardLikeGetUserInfoResponse.response
+                }
+
+                override fun onError(e: Throwable) {
+                }
+
+            })
+
     }
 
 

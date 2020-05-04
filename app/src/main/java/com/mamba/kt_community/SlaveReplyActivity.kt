@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.firebase.auth.FirebaseAuth
 import com.mamba.kt_community.Adapter.reply.SlaveReplyAdapter
+import com.mamba.kt_community.BranchActivity.Companion.currentUserEmail
 import com.mamba.kt_community.ItemClickListener.OnReplySlaveItemClickListener
 import com.mamba.kt_community.data.data.reply.ReplySlaveUserInfo
 import com.mamba.kt_community.data.data.viewmodel.SlaveReplyViewModel
@@ -35,8 +36,6 @@ class SlaveReplyActivity : AppCompatActivity() , SwipeRefreshLayout.OnRefreshLis
     private lateinit var recyclerView: RecyclerView
     //slave 어댑터
     private lateinit var slaveReplyAdapter: SlaveReplyAdapter
-    //현재 유저정보
-    private lateinit var currentUserEmail:String
 
     //Master에서온 Intent데이터
     private lateinit var boardIdx: String
@@ -58,11 +57,6 @@ class SlaveReplyActivity : AppCompatActivity() , SwipeRefreshLayout.OnRefreshLis
 
         //인텐트 데이터 받아오기
         intentDataFromMaster()
-
-        //현재 유저 정보 받아오기
-        if(FirebaseAuth.getInstance().currentUser!=null){
-            currentUserEmail= FirebaseAuth.getInstance().currentUser!!.email!!
-        }
 
         slaveReplyAdapter= SlaveReplyAdapter(this)
 

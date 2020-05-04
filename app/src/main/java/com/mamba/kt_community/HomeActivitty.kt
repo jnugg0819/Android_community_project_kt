@@ -4,16 +4,21 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.lifecycle.ViewModelProvider
 import com.facebook.login.LoginManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.mamba.kt_community.BranchActivity.Companion.currentUserEmail
 import com.mamba.kt_community.Fragment.AccountFragment
 import com.mamba.kt_community.Fragment.HomeFragment
 import com.mamba.kt_community.Fragment.SearchFragment
+import com.mamba.kt_community.data.data.board.BoardLikeUserInfo
+import com.mamba.kt_community.data.data.viewmodel.HomeViewModel
 import kotlinx.android.synthetic.main.activity_home.*
+import java.util.ArrayList
 import kotlin.system.exitProcess
 
 class HomeActivitty : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
@@ -23,11 +28,22 @@ class HomeActivitty : AppCompatActivity(), BottomNavigationView.OnNavigationItem
         var searchFragment: SearchFragment? = null
         var accountFragment: AccountFragment? = null
 
+        //좋아요 누른 사람들 정보(ViewModel에서 접근)
+        lateinit var userInfoList:ArrayList<BoardLikeUserInfo>
     }
+
+    private var viewModel: HomeViewModel?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        viewModel=this.application!!.let {
+            ViewModelProvider(
+                viewModelStore, ViewModelProvider.AndroidViewModelFactory(it)).get(HomeViewModel::class.java)}
+
+        //좋아요 유저정보 불러오기
+        viewModel!!.getLikeUserInfo(currentUserEmail)
 
         supportFragmentManager.beginTransaction().replace(R.id.home_container, homeFragment)
             .commit()

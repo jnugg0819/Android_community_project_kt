@@ -15,6 +15,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.mamba.kt_community.ItemClickListener.OnBoardItemClickListener
 import com.mamba.kt_community.R
 import com.mamba.kt_community.data.data.board.Board
+import com.mamba.kt_community.response.board.BoardReplyAllCountResponse
 import com.mamba.kt_community.retrofit.MyAPI
 import com.mamba.kt_community.retrofit.RetrofitClient
 import de.hdodenhof.circleimageview.CircleImageView
@@ -26,6 +27,7 @@ import java.util.ArrayList
 
 class BoardAdapter(internal var context: Context) : RecyclerView.Adapter<BoardAdapter.ViewHolder>(),
     OnBoardItemClickListener {
+
     internal var items: MutableList<Board> = ArrayList<Board>()
     internal var listener: OnBoardItemClickListener? = null
 
@@ -84,7 +86,8 @@ class BoardAdapter(internal var context: Context) : RecyclerView.Adapter<BoardAd
         context: Context
     ) : RecyclerView.ViewHolder(cardView) {
 
-        private var myAPI: MyAPI? = null
+        val retrofit = RetrofitClient.instance
+        private var myAPI=  retrofit!!.create(MyAPI::class.java)
 
         var userId: TextView = cardView.findViewById(R.id.cardview_userId)
         var contents: TextView = cardView.findViewById(R.id.cardview_contents)
@@ -101,21 +104,15 @@ class BoardAdapter(internal var context: Context) : RecyclerView.Adapter<BoardAd
 
 
         init {
-
             replyBtn.setOnClickListener { view ->
                 val position = adapterPosition
-                if (listener != null) {
-                    listener!!.replyBtnClick(this@ViewHolder, view, position)
-                }
+                listener?.replyBtnClick(this@ViewHolder, view, position)
             }
 
             likeBtn.setOnClickListener { view ->
                 val position = adapterPosition
-                if (listener != null) {
-                    listener!!.likeBtnClick(this@ViewHolder, view, position)
-                }
+                listener?.likeBtnClick(this@ViewHolder, view, position)
             }
-
         }
 
         fun setItem(item: Board) {
@@ -139,7 +136,7 @@ class BoardAdapter(internal var context: Context) : RecyclerView.Adapter<BoardAd
 
            //user profile image
            Glide.with(cardView.context)
-               .load("http://192.168.35.30:8080/getMyPageImage?creatorId=" + userId.text.toString())
+               .load("http://192.168.35.27:8080/getMyPageImage?creatorId=" + userId.text.toString())
                .error(R.drawable.ic_person_black_36dp)
                .diskCacheStrategy(DiskCacheStrategy.NONE)
                .skipMemoryCache(true)
@@ -151,12 +148,41 @@ class BoardAdapter(internal var context: Context) : RecyclerView.Adapter<BoardAd
            val urlList = ArrayList<String>()
            for (i  in item.fileList!!.indices) {
                urlList.add(
-                   "http://192.168.35.30:8080/timelineGetImage?boardIdx=" + item.boardIdx + "&idx=" + item.fileList!![i].idx
+                   "http://192.168.35.27:8080/timelineGetImage?boardIdx=" + item.boardIdx + "&idx=" + item.fileList!![i].idx
                )
            }
 
+            getAllReplyCount(item.boardIdx!!.toInt())
+
            boardViewPagerAdapter = BoardViewPagerAdapter(cardView.context, urlList, viewPager)
            viewPager.adapter = boardViewPagerAdapter
+
+
+
+        }
+
+        private fun getAllReplyCount(boardIdx:Int){
+            myAPI!!.selectAllReply(boardIdx)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : Observer<BoardReplyAllCountResponse>{
+                    override fun onComplete() {
+
+                    }
+
+                    override fun onSubscribe(d: Disposable) {
+
+                    }
+
+                    override fun onNext(boardReplyAllCountResponse: BoardReplyAllCountResponse) {
+                        replyTxt.text = boardReplyAllCountResponse.replyCount.toString()
+                    }
+
+                    override fun onError(e: Throwable) {
+
+                    }
+
+                })
         }
     }
 

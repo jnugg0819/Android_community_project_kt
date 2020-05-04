@@ -19,7 +19,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 var retrofitPart= module {
     single<MyAPI>{
         Retrofit.Builder()
-            .baseUrl("http://192.168.35.30:8080/")
+            .baseUrl("http://192.168.35.27:8080/")
             .client(createOkHttpClient())
             .addConverterFactory(GsonConverterFactory.create())
             .addConverterFactory(ScalarsConverterFactory.create())
@@ -61,3 +61,7 @@ private fun createOkHttpClient(): OkHttpClient {
     builder.addInterceptor(interceptor)
     return builder.build()
 }
+
+
+
+

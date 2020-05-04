@@ -19,6 +19,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.mamba.kt_community.Adapter.upload.UploadViewPagerAdapter
+import com.mamba.kt_community.BranchActivity.Companion.currentUserEmail
 import com.mamba.kt_community.response.upload.UploadResponse
 import com.mamba.kt_community.retrofit.MyAPI
 import com.mamba.kt_community.retrofit.RetrofitClient
@@ -55,17 +56,9 @@ class UploadActivity : AppCompatActivity() {
     //앨뱀에서 가지고온 image 실제경로
     private var imageRealPath = ArrayList<String>()
 
-    //현재 사용자 아이디 가져오기
-    private var currentUserEmail:String?=null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_upload)
-
-        if(FirebaseAuth.getInstance().currentUser!=null){
-            currentUserEmail=FirebaseAuth.getInstance().currentUser!!.email
-        }
-
 
         val retrofit = RetrofitClient.instance
         myAPI = retrofit!!.create(MyAPI::class.java)

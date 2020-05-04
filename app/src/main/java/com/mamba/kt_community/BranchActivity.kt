@@ -8,9 +8,18 @@ import kotlinx.android.synthetic.main.activity_branch.*
 
 class BranchActivity : AppCompatActivity() {
 
+    companion object{
+        lateinit var currentUserEmail:String
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_branch)
+
+        //userEmail
+        if(FirebaseAuth.getInstance().currentUser!=null){
+          currentUserEmail = FirebaseAuth.getInstance().currentUser!!.email!!
+        }
 
         moveHomePage()
 

@@ -18,6 +18,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.firebase.auth.FirebaseAuth
 import com.mamba.kt_community.Adapter.board.BoardAdapter
 import com.mamba.kt_community.BranchActivity
+import com.mamba.kt_community.BranchActivity.Companion.currentUserEmail
 import com.mamba.kt_community.HomeActivitty
 import com.mamba.kt_community.MyPageDetailActivity
 
@@ -35,9 +36,6 @@ class AccountFragment : Fragment() {
     private var recyclerView: RecyclerView? = null
     var adapter: BoardAdapter?=null
 
-    //현재 사용자 아이디 가져오기
-    private var currentUserEmail:String?=null
-
     private var homeActivitty:HomeActivitty?=null
 
     private lateinit var mypageUserImage:CircleImageView
@@ -51,10 +49,7 @@ class AccountFragment : Fragment() {
 
         homeActivitty = activity as HomeActivitty?
 
-        //userEmail
-        if(FirebaseAuth.getInstance().currentUser!=null){
-            currentUserEmail= FirebaseAuth.getInstance().currentUser!!.email
-        }
+
 
         val mypageUserId=rootView.findViewById<TextView>(R.id.mypage_userId)
         mypageUserImage=rootView.findViewById<CircleImageView>(R.id.mypage_user_image)
@@ -92,7 +87,7 @@ class AccountFragment : Fragment() {
     fun getUserImage(){
         //userProfileIamge
         Glide.with(activity!!.applicationContext)
-            .load("http://192.168.35.30:8080/getMyPageImage?creatorId=$currentUserEmail")
+            .load("http://192.168.35.27:8080/getMyPageImage?creatorId=$currentUserEmail")
             .error(R.drawable.ic_person_black_36dp)
             .diskCacheStrategy(DiskCacheStrategy.NONE)
             .skipMemoryCache(true)

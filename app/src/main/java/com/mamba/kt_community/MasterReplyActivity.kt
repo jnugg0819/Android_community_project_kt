@@ -19,6 +19,7 @@ import com.google.android.youtube.player.internal.i
 import com.google.android.youtube.player.internal.j
 import com.google.firebase.auth.FirebaseAuth
 import com.mamba.kt_community.Adapter.reply.MasterReplyAdapter
+import com.mamba.kt_community.BranchActivity.Companion.currentUserEmail
 import com.mamba.kt_community.ItemClickListener.OnReplyItemClickListener
 import com.mamba.kt_community.base.BaseViewModel
 import com.mamba.kt_community.data.data.reply.ReplyUserInfo
@@ -34,9 +35,6 @@ class MasterReplyActivity : AppCompatActivity(),SwipeRefreshLayout.OnRefreshList
 
     private lateinit var masterReplyAdapter:MasterReplyAdapter
 
-    //현재 유저정보
-    private lateinit var currentUserEmail:String
-
     //해당게시물
     private lateinit var boardIdx: String
 
@@ -45,7 +43,6 @@ class MasterReplyActivity : AppCompatActivity(),SwipeRefreshLayout.OnRefreshList
         //따봉 누른 유저정보 가져오기
         var userInfoList = ArrayList<ReplyUserInfo>()
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,10 +58,6 @@ class MasterReplyActivity : AppCompatActivity(),SwipeRefreshLayout.OnRefreshList
         master_swipe_layout.setOnRefreshListener(this)
         master_swipe_layout.setColorSchemeResources(R.color.colorIris)
 
-        if(FirebaseAuth.getInstance().currentUser!=null){
-            currentUserEmail= FirebaseAuth.getInstance().currentUser!!.email!!
-        }
-
         //인텐트로 게시물 번호 가져오기
         val fromHome=intent
         boardIdx=fromHome.getStringExtra("boardIdx")
@@ -75,7 +68,7 @@ class MasterReplyActivity : AppCompatActivity(),SwipeRefreshLayout.OnRefreshList
             layoutManager=GridLayoutManager(this@MasterReplyActivity,1)
         }
 
-        //따봉누른 유저정보 가져오기
+        //따봉누른 유저정보 가져오기남겨지다 영어
         viewModel.selectMasterReplyThumbsUpUI(boardIdx.toInt(),currentUserEmail)
 
         //게시물 번호로 해당 게시물 댓글 가져오기

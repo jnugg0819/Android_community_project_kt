@@ -2,6 +2,9 @@ package com.mamba.kt_community.retrofit
 
 import com.mamba.kt_community.data.data.mypage.MyPageInfo
 import com.mamba.kt_community.data.data.reply.Reply
+import com.mamba.kt_community.response.board.BoardLikeGetUserInfoResponse
+import com.mamba.kt_community.response.board.BoardLikeUpdateResponse
+import com.mamba.kt_community.response.board.BoardReplyAllCountResponse
 import com.mamba.kt_community.response.board.BoardResponse
 import com.mamba.kt_community.response.mypage.MyPageResponse
 import com.mamba.kt_community.response.mypage.MyPageTextResponse
@@ -50,7 +53,26 @@ interface MyAPI {
     @GET("timelinesixth")
     fun getTimelineSixth(): Observable<BoardResponse>
 
+    @PUT("uploadBoard/likeUpdate")
+    @FormUrlEncoded
+    fun updateLike(
+        @Field("boardIdx") boardIdx: Int, @Field("pressedId") pressedId: String, @Field(
+            "isPressed"
+        ) isPressed: Boolean
+    ): Observable<BoardLikeUpdateResponse>
 
+    @GET("uploadBoard/getReplyCount")
+    fun selectAllReply(@Query("boardIdx") boardIdx: Int): Observable<BoardReplyAllCountResponse>
+
+    @POST("timeLineLikePostUserInfo")
+    @FormUrlEncoded
+    fun insertLikeUserInfo(@Field("boardIdx") boardIdx: Int, @Field("pressedId") pressedId: String): Observable<BoardLikeUpdateResponse>
+
+    @DELETE("timeLineLikeDeleteUserInfo")
+    fun deleteLikeUserInfo(@Query("boardIdx") boardIdx: Int, @Query("pressedId") pressedId: String): Observable<BoardLikeUpdateResponse>
+
+    @GET("timeLineLikeGetUserInfo")
+    fun selectLikeUserInfo(@Query("userId") userId: String): Observable<BoardLikeGetUserInfoResponse>
 
 
     //MyPage
