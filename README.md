@@ -4,36 +4,36 @@
 
 ## 로그인
 
-<img src="https://github.com/jnugg0819/My_imgae_repo/blob/master/Github/gif/login.gif" width="350px" height="450px"></img></br>
+<img src="https://github.com/jnugg0819/My_imgae_repo/blob/master/Github/gif/login.gif" width="300px" height="450px"></img></br>
 
 ## 회원가입
 
-<img src="https://github.com/jnugg0819/My_imgae_repo/blob/master/Github/gif/logout.gif" width="350px" height="450px"></img>
+<img src="https://github.com/jnugg0819/My_imgae_repo/blob/master/Github/gif/logout.gif" width="300px" height="450px"></img>
 
 
 
 ## 댓글 달기
 
-<img src="https://github.com/jnugg0819/My_imgae_repo/blob/master/Github/gif/reply.gif" width="350px" height="450px"></img>
+<img src="https://github.com/jnugg0819/My_imgae_repo/blob/master/Github/gif/reply.gif" width="300px" height="450px"></img>
 
 ## 답글 달기
 
-<img src="https://github.com/jnugg0819/My_imgae_repo/blob/master/Github/gif/reply_slave.gif" width="350px" height="450px"></img>
+<img src="https://github.com/jnugg0819/My_imgae_repo/blob/master/Github/gif/reply_slave.gif" width="300px" height="450px"></img>
 
 
 ## 좋아요 누르고 좋아요 버튼유지
 
-<img src="https://github.com/jnugg0819/My_imgae_repo/blob/master/Github/gif/reply_like.gif" width="350px" height="450px"></img>
+<img src="https://github.com/jnugg0819/My_imgae_repo/blob/master/Github/gif/reply_like.gif" width="300px" height="450px"></img>
 
 
- ## 마이페이지 이미지 업데이트및 , 본인이 올린 게시물 보기
+## 마이페이지 이미지 업데이트및 , 본인이 올린 게시물 보기
 
-<img src="https://github.com/jnugg0819/My_imgae_repo/blob/master/Github/gif/mypage_image_update.gif" width="350px" height="450px"></img>
+<img src="https://github.com/jnugg0819/My_imgae_repo/blob/master/Github/gif/mypage_image_update.gif" width="300px" height="450px"></img>
 
 
 ## 업로드
 
-<img src="https://github.com/jnugg0819/My_imgae_repo/blob/master/Github/gif/upload.gif" width="350px" height="450px"></img>
+<img src="https://github.com/jnugg0819/My_imgae_repo/blob/master/Github/gif/upload.gif" width="300px" height="450px"></img>
 
 ## 홈게시판 댓글개수 추가 및 좋아요 표시
 
