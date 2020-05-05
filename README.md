@@ -35,14 +35,14 @@
 
 <img src="https://github.com/jnugg0819/My_imgae_repo/blob/master/Github/gif/upload.gif" width="300px" height="450px"></img>
 
----
+
 
 ## 홈게시판 댓글개수 추가 및 좋아요 표시
 
 <img src="https://github.com/jnugg0819/My_imgae_repo/blob/master/Github/gif/boardLike_and_replycount.gif" width="300px" height="450px"></img>
 
 
-
+---
 ## 만들게된 배경
 
 
