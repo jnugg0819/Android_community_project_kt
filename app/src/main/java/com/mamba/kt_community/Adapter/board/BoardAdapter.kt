@@ -88,16 +88,16 @@ class BoardAdapter(internal var context: Context) : RecyclerView.Adapter<BoardAd
 
         val retrofit = RetrofitClient.instance
         private var myAPI=  retrofit!!.create(MyAPI::class.java)
-
-        var userId: TextView = cardView.findViewById(R.id.cardview_userId)
-        var contents: TextView = cardView.findViewById(R.id.cardview_contents)
-        var likeCount: TextView=cardView.findViewById(R.id.cardview_like_txt)
-        var creatdDatetime: TextView = cardView.findViewById(R.id.cardview_created_time)
-        var userImage: CircleImageView=cardView.findViewById(R.id.cardview_user_image)
-        var replyBtn: ImageButton=cardView.findViewById(R.id.cardview_reply_btn)
-        var likeBtn: ToggleButton= cardView.findViewById(R.id.cardview_like_btn)
-        var replyTxt: TextView=cardView.findViewById(R.id.cardview_reply_txt)
-        var viewPager:ViewPager = cardView.findViewById(R.id.main_viewPger)
+      
+        private val userId: TextView = cardView.findViewById(R.id.cardview_userId)
+        private val contents: TextView = cardView.findViewById(R.id.cardview_contents)
+        private val likeCount: TextView=cardView.findViewById(R.id.cardview_like_txt)
+        private val creatdDatetime: TextView = cardView.findViewById(R.id.cardview_created_time)
+        private val userImage: CircleImageView=cardView.findViewById(R.id.cardview_user_image)
+        private val replyBtn: ImageButton=cardView.findViewById(R.id.cardview_reply_btn)
+        private val likeBtn: ToggleButton= cardView.findViewById(R.id.cardview_like_btn)
+        private val replyTxt: TextView=cardView.findViewById(R.id.cardview_reply_txt)
+        private val viewPager:ViewPager = cardView.findViewById(R.id.main_viewPger)
 
         //ViewPager
         private lateinit var boardViewPagerAdapter: BoardViewPagerAdapter

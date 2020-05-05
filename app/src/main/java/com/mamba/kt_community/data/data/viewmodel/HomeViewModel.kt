@@ -1,18 +1,16 @@
 package com.mamba.kt_community.data.data.viewmodel
 
 import android.util.Log
-import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.mamba.kt_community.Adapter.board.BoardAdapter
+import com.mamba.kt_community.Adapter.search.SearchAdapter
 import com.mamba.kt_community.HomeActivitty
 import com.mamba.kt_community.response.board.BoardLikeGetUserInfoResponse
 import com.mamba.kt_community.response.board.BoardLikeUpdateResponse
 import com.mamba.kt_community.response.board.BoardResponse
 import com.mamba.kt_community.retrofit.MyAPI
 import com.mamba.kt_community.retrofit.RetrofitClient
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -305,6 +303,44 @@ class HomeViewModel:ViewModel(){
 
             })
 
+    }
+    
+    fun selectSearchAll(
+        searchTxt: String,
+        recyclerView: RecyclerView,
+        searchAdapter: SearchAdapter
+    ){
+        myAPI.selectSearchAll(searchTxt)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object :io.reactivex.Observer<BoardResponse>{
+
+
+                override fun onSubscribe(d: Disposable) {
+
+                }
+
+                override fun onNext(boardResponse: BoardResponse) {
+
+                    val newBoard=boardResponse.response
+
+                    Log.d("searchResult",boardResponse.response[0].title)
+                    searchAdapter.setItems(newBoard)
+                    searchAdapter.notifyDataSetChanged()
+
+                }
+
+                override fun onComplete() {
+                    recyclerView.adapter=searchAdapter
+
+                }
+
+                override fun onError(e: Throwable) {
+                    Log.d("error","${e.printStackTrace()}")
+
+                }
+
+            })
     }
 
 

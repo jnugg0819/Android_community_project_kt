@@ -175,4 +175,10 @@ interface MyAPI {
     ): Observable<ReplyUpdateResponse>
 
 
+
+    //search
+    @GET("uploadBoard/search")
+    fun selectSearchAll(@Query("searchTxt") searchTxt: String): Observable<BoardResponse>
+
+
 }

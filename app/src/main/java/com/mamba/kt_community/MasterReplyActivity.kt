@@ -68,7 +68,7 @@ class MasterReplyActivity : AppCompatActivity(),SwipeRefreshLayout.OnRefreshList
             layoutManager=GridLayoutManager(this@MasterReplyActivity,1)
         }
 
-        //따봉누른 유저정보 가져오기남겨지다 영어
+        //따봉누른 유저정보 가져오기
         viewModel.selectMasterReplyThumbsUpUI(boardIdx.toInt(),currentUserEmail)
 
         //게시물 번호로 해당 게시물 댓글 가져오기
