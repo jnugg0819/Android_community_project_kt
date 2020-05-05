@@ -69,6 +69,8 @@
 
 ---
 
+개발기간 **2019-08~현재(유지보수중)**
+
 블로그 링크: https://kanio.tistory.com/
 
 이메일 링크: jnugg0819@naver.com
