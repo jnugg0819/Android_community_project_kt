@@ -75,17 +75,18 @@
 
      }
    ```
+   
    MasterReplyViewModel.kt
    ```
    //private으로 지정 외부 접근방지
    private val _masterReplyGetLiveData = MutableLiveData<ReplyGetResponse>()
 
-  //외부접근 가능용
-    val masterReplyGetLiveData: LiveData<ReplyGetResponse>
+   //외부접근 가능용
+   val masterReplyGetLiveData: LiveData<ReplyGetResponse>
         get() = _masterReplyGetLiveData
 
-  //댓글정보 가져오기
-    fun getMasterReply(boardIdx: Int) {
+   //댓글정보 가져오기
+   fun getMasterReply(boardIdx: Int) {
             addDisposable(
                 model.getMasterReply(boardIdx)
                     .subscribeOn(Schedulers.io())
@@ -106,6 +107,7 @@
                     ))
         }
    ```
+
    MasterReplyActivity.kt
    ```
    //관찰하고있던 객체에 신호가 들어오면 어댑터에 데이터를 갱신해줌
