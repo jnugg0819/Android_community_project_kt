@@ -279,7 +279,7 @@
  등록된 사진은 밑에 날짜별로 저장해뒀다.
 
 
-  <img src="https://github.com/jnugg0819/My_imgae_repo/blob/master/Github/gif/mypage_image_insert.png" width="300px" height="450px"></img>
+  <img src="https://github.com/jnugg0819/My_imgae_repo/blob/master/Github/gif/mypage_image_insert.png" width="500px" height="400px"></img>
 
 물론 이것은 dev라 윈도우즈 환경에서 실행됬다 실제는 Centos리눅스 환경에서 실행된다.   
 
