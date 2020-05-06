@@ -60,7 +60,7 @@
  * 댓글 및 답글 달기는 ViewModel과 LiveData를 이용했다. 기본적으로 Activity에서 화면이 돌아가거나 다시생성 되게된다면
    리소스가 다 날아가기 때문에 OnSaveInstanceState를 사용한다. 하지만 이 함수는 작은 데이터만 효율적으로 관리 할 수 있다.
    만약 대량의데이터가 저장되고 다시 불러오는 과정을 거친다면 엄청난 리소스가 할애 될것이다. 그래서 나온게 ViewModel이다.
-   Activity 생명주기와 상관 없이 Activity폐기될때까지 유지 가능하다. 밑에 코드는 주요 코드 내용이다.
+   Activity 생명주기와 상관 없이 Activity가폐기될때까지 유지 가능하다. 밑에 코드는 주요 코드 내용이다.
 
    MasterReplyActivity.kt
    ```
@@ -122,7 +122,210 @@
   3. 좋아요 누르고 좋아요 버튼 유지
    * 가장 생각을 많이 한 부분이었다 Client ,Server 에서 많이 생각을 했던 부분이 아닌가 싶다. 밑에는 클라이언트부터 서버까지 간단한 알고리즘이다.
 
-   <img src="https://github.com/jnugg0819/My_imgae_repo/blob/master/Github/gif/like_algo.png" width="800px" height="300px"></img>
+   <img src="https://github.com/jnugg0819/My_imgae_repo/blob/master/Github/gif/like_algo.png" width="900px" height="300px"></img>
+
+   like_checker로 해당 아이콘이 체크되었는지 체크해준다. 좋아요 버튼을 누르게된다면 like_checker 값이 토글될것이고 맞으면 좋아요 +1해준다음에 아이콘 색상은
+   검은색으로 변경하고, 해당 게시글이 저장된 테이블을 Update해주고 유저정보 테이블에 누른 유저를 등록해준준다.
+
+   버튼유지는 먼저 HomeActivity(타임라인 프래그먼트가 전부 붙어있는곳)가 띄어지면 현재등록된 아이디를 이용해서 GET을 해준다.
+
+   HomeActivity.kt
+   ```
+   companion object{
+       //좋아요 누른 사람들 정보(ViewModel에서 접근)
+       lateinit var userInfoList:ArrayList<BoardLikeUserInfo>
+   }
+
+   override fun onCreate(savedInstanceState:Bundle?){
+   ...중략...
+
+   //좋아요 유저정보 불러오기
+   viewModel!!.getLikeUserInfo(currentUserEmail)
+
+   }
+   ```
+
+   HomeViewModel.kt
+   ```
+   myAPI.selectLikeUserInfo(userId)
+           .subscribeOn(Schedulers.io())
+           .observeOn(AndroidSchedulers.mainThread())
+           .subscribe(object :io.reactivex.Observer<BoardLikeGetUserInfoResponse>{
+               override fun onComplete() {
+
+               }
+
+               override fun onSubscribe(d: Disposable) {
+               }
+
+               override fun onNext(boardLikeGetUserInfoResponse: BoardLikeGetUserInfoResponse) {
+                   //HomeActivity에 등록된 사용자리스트에 대입
+                   HomeActivitty.userInfoList=boardLikeGetUserInfoResponse.response
+               }
+
+               override fun onError(e: Throwable) {
+               }
+
+           })
+   ```
+
+   그리고 각 타임라인에서 HomeActivity에 userInfoList를 가져다 쓰기만하면 된다.
+   ```
+   ...중략...
+
+   override fun onNext(boardResponse: BoardResponse) {
+        val newBoard = boardResponse.response
+            for(i in newBoard.indices){
+                  for(j in HomeActivitty.userInfoList.indices){
+                        //데이터가 들어오게 되면 게시글번호 비교로 해당 Board 데이터 클래스에 isLikeCheck값을 변경해주기만 하면 adapter에서 해당 게시글이 set될때마다 아이콘을 변경해준다.
+                        if (Integer.parseInt(newBoard[i].boardIdx!!) == HomeActivitty.userInfoList[j].boardIdx) {
+                              newBoard[i].isLikeCheck=true
+                          }
+                      }
+                  }
+            adapter.setItems(newBoard)
+            adapter.notifyDataSetChanged()
+    }
+
+
+   ```
+
+   4. 마이페이지 이미지 업데이트 및 , 본인이 올리 게시물 보기
+
+  * 이방법도 3번과 방법이 비슷하다 마이페이지로 들어갔을시 서버 API를 조회하여 이미지를 불러온다. 밑에는 Controller부분에서 가져온 주요코드이다.
+
+  MyPageDetailActivity.kt
+  ```
+  //현재 접속되있는 아이디를 보냄으로써 response값으로 정상인 값이 온다면 image에 넣어주고 아니면 error 기본 유저이미지를 넣어준다.
+  Glide.with(this)
+           .load("http://192.168.35.30:8080/getMyPageImage?creatorId=$currentUserEmail")
+           .error(R.drawable.ic_person_black_36dp)
+           .diskCacheStrategy(DiskCacheStrategy.NONE)
+           .skipMemoryCache(true)
+           .into(mypage_detail_image)
+
+
+  ```
+
+  밑에 코드는 Spring코드인데 잠깐만 보겠다.
+
+  RestController.java(Spring)
+  ```
+  //MyPage의 사진 가져오기
+  //response값에 해당 사진이 binary값으로 ouput된다.
+		@RequestMapping(value="/getMyPageImage", method=RequestMethod.GET)
+		public void selectMyPageGetImage(@RequestParam("creatorId") String creatorId , HttpServletResponse response) throws Exception{
+
+			 MyPageDto myPageDto=boardService.selectMyPageGetImage(creatorId);
+
+			if(ObjectUtils.isEmpty(myPageDto) == false) {
+				String fileName = myPageDto.getOriginalFileName();
+
+        //사진이 저장된 경로를 가져와준다음에 byte형식으로 전환
+				byte[] files = FileUtils.readFileToByteArray(new File(myPageDto.getStoredFilePath()));
+
+        //contentType 및 header지정
+				response.setContentType("image/jpeg");
+				response.setContentLength(files.length);
+				response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(fileName,"UTF-8")+"\";");
+				response.setHeader("Content-Transfer-Encoding", "binary");
+
+        //outputstream 가져온다음에 파일 내보내고 flush해서 초기화시켜준다
+				response.getOutputStream().write(files);
+				response.getOutputStream().flush();
+        //stream 닫아보리기
+				response.getOutputStream().close();
+
+			}
+
+		}
+
+
+  ```
+
+  위에 코드는 그냥 사진만 가져올 뿐이다. 하지만 기존에 원래 등록되있는 사진이있다면??? 해당사진을 delete해주고 update해주면된다.
+
+  ```
+  //마이페이지 정보 등록
+  	@RequestMapping(value="/postMyPageInfo",method=RequestMethod.POST)
+  	public HashMap<String, Object> insertMyPageInfo(@RequestParam("existImage") boolean existImage,MultipartHttpServletRequest file,MyPageDto myPageDto) throws Exception{
+  		HashMap<String, Object> obj=new HashMap();
+      //existImage가 참이면현재 등록되있는 이미지가 있다는 뜻이다 그러므로 지워주고 업데이트해준다.(Service부분에서 File 삭제)
+  		if(existImage) {
+  			if(boardService.removePriorImage(myPageDto)) {
+  				boardService.updateMyPageInfo(myPageDto,file);
+  				obj.put("response", "update");
+  			}
+  		}else {
+  			//업으면 그냥 Insert해준다. (Service부분에서 File 등록)
+  			boardService.insertMyPageInfo(myPageDto,file);
+  			obj.put("response", "insert");
+  		}
+      //JSON으로 Update되었는지  Insert되었는지 확인
+  		return obj;
+  	}
+
+  ```
+
+ 등록된 사진은 밑에 날짜별로 저장해뒀다.
+
+
+  <img src="https://github.com/jnugg0819/My_imgae_repo/blob/master/Github/gif/mypage_image_insert.gif" width="300px" height="450px"></img>
+
+물론 이것은 dev라 윈도우즈 환경에서 실행됬다 실제는 Centos리눅스 환경에서 실행된다.
+
+
+
+5. 업로드
+* 업로드는 여러장의 사진을 등록하기 때문에 Multipart로 구현해 줬다. 업로드 같은 경우에는 단한번만 사용하면 되기때문에 ViewModel을 사용하진 않았다.
+
+```
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+      //공유 버튼 클릭시
+      upload_share_btn.setOnClickListener {
+         uploadDataBase()
+     }
+  }
+
+  private fun uploadDataBase() {
+    //Multipart 선언및 list생성(여러장의 사진을 넣어야 되기때문)
+    var part: MultipartBody.Part
+    val listMultipartBody = ArrayList<MultipartBody.Part>()
+
+    //이미지가 담긴 리스트만큼 body를 생성해주고 , 이미지 이름과 함께 리스트에 추가해준다.
+    for (i in imageRealPath.indices) {
+          val image = File(imageRealPath[i])
+          val requestFile = RequestBody.create(MediaType.parse("image/jpeg"), image)
+          part = MultipartBody.Part.createFormData("uploadImage", image.name, requestFile)
+          listMultipartBody.add(part)
+      }
+
+      //그후 나머지 데이터들과 함계 이미지를 list형태로 보내준다음 서버에서는 Iterator로 돌리면서 저장해주면 된다.
+      myAPI!!.insertUpload(
+                  requestUserId,
+                  requestGenre,
+                  requestYoutubeAdd,
+                  requestTitle,
+                  requesetMusicName,
+                  requestSingerName,
+                  requestRelatedSong,
+                  requestContents,
+                  listMultipartBody
+              ).subscribeOn(
+                  Schedulers.io()
+              ).observeOn(AndroidSchedulers.mainThread())...중략...
+  }
+
+
+```
+
+사용자입장에서 단순히 해당항목만 작성해서 공유한다는것이 너무 단조롭다... 커뮤니티 사이트인 op.gg를 보면 밑에 그림과 같이 서식을 사용 할 수있다.
+다음 수정은 이런식으로 구현해 봐야겠다.
+
+<img src="https://github.com/jnugg0819/My_imgae_repo/blob/master/Github/gif/op_gg.png" width="300px" height="450px"></img>
+
+
 
 
 
