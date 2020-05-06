@@ -7,26 +7,32 @@
     android:orientation="vertical"
     tools:context=".Fragment.SearchFragment">
 
+
     <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/search_fm_search_edt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="9" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_weight="9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/search_fm_search_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="검색" />
+            <EditText
+                android:id="@+id/search_fm_edt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+
+        </com.google.android.material.textfield.TextInputLayout>
 
 
     </LinearLayout>
+
+
+
+
+
 
 
     <FrameLayout

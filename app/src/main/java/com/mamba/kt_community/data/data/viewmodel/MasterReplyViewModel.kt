@@ -17,8 +17,10 @@ import io.reactivex.Observer
 
 class MasterReplyViewModel(private val model: DataModel) : BaseViewModel() {
 
+    //외부접근 방지용
     private val _masterReplyGetLiveData = MutableLiveData<ReplyGetResponse>()
 
+    //외부접근 가능용
     val masterReplyGetLiveData: LiveData<ReplyGetResponse>
         get() = _masterReplyGetLiveData
 

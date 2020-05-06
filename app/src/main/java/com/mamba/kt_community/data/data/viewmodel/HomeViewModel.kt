@@ -1,6 +1,8 @@
 package com.mamba.kt_community.data.data.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.mamba.kt_community.Adapter.board.BoardAdapter
@@ -9,8 +11,10 @@ import com.mamba.kt_community.HomeActivitty
 import com.mamba.kt_community.response.board.BoardLikeGetUserInfoResponse
 import com.mamba.kt_community.response.board.BoardLikeUpdateResponse
 import com.mamba.kt_community.response.board.BoardResponse
+import com.mamba.kt_community.response.search.SearchResponse
 import com.mamba.kt_community.retrofit.MyAPI
 import com.mamba.kt_community.retrofit.RetrofitClient
+import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -19,6 +23,11 @@ class HomeViewModel:ViewModel(){
 
     private val retrofit = RetrofitClient.instance
     private val myAPI= retrofit!!.create(MyAPI::class.java)
+
+    private val _searchGetLiveData=MutableLiveData<BoardResponse>()
+
+    val searchGetLiveData:LiveData<BoardResponse>
+        get()=_searchGetLiveData
 
     fun getFirstTimeLine(recyclerView:RecyclerView,adapter:BoardAdapter){
         myAPI.getTimelineFirst().subscribeOn(Schedulers.io())
@@ -313,21 +322,16 @@ class HomeViewModel:ViewModel(){
         myAPI.selectSearchAll(searchTxt)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object :io.reactivex.Observer<BoardResponse>{
+            .subscribe(object :io.reactivex.Observer<SearchResponse>{
 
 
                 override fun onSubscribe(d: Disposable) {
 
                 }
 
-                override fun onNext(boardResponse: BoardResponse) {
-
-                    val newBoard=boardResponse.response
-
-                    Log.d("searchResult",boardResponse.response[0].title)
-                    searchAdapter.setItems(newBoard)
+                override fun onNext(searchResponse: SearchResponse) {
+                    searchAdapter.setItems(searchResponse.response)
                     searchAdapter.notifyDataSetChanged()
-
                 }
 
                 override fun onComplete() {
@@ -342,6 +346,8 @@ class HomeViewModel:ViewModel(){
 
             })
     }
+
+
 
 
 

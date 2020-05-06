@@ -1,7 +1,5 @@
 package com.mamba.kt_community.retrofit
 
-import com.mamba.kt_community.data.data.mypage.MyPageInfo
-import com.mamba.kt_community.data.data.reply.Reply
 import com.mamba.kt_community.response.board.BoardLikeGetUserInfoResponse
 import com.mamba.kt_community.response.board.BoardLikeUpdateResponse
 import com.mamba.kt_community.response.board.BoardReplyAllCountResponse
@@ -9,12 +7,12 @@ import com.mamba.kt_community.response.board.BoardResponse
 import com.mamba.kt_community.response.mypage.MyPageResponse
 import com.mamba.kt_community.response.mypage.MyPageTextResponse
 import com.mamba.kt_community.response.reply.*
+import com.mamba.kt_community.response.search.SearchResponse
 import com.mamba.kt_community.response.upload.UploadResponse
 import io.reactivex.Observable
 import io.reactivex.Single
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.Call
 import retrofit2.http.*
 import java.util.ArrayList
 
@@ -178,7 +176,7 @@ interface MyAPI {
 
     //search
     @GET("uploadBoard/search")
-    fun selectSearchAll(@Query("searchTxt") searchTxt: String): Observable<BoardResponse>
+    fun selectSearchAll(@Query("searchTxt") searchTxt: String): Observable<SearchResponse>
 
 
 }

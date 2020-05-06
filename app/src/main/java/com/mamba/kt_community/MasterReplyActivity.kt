@@ -77,7 +77,6 @@ class MasterReplyActivity : AppCompatActivity(),SwipeRefreshLayout.OnRefreshList
 
         //Livedata로 Observe해주기
         viewModel.masterReplyGetLiveData.observe(this, Observer {
-
             if(userInfoList.size!=0){
                 for(i in it.response.indices){
                     for(j in userInfoList.indices){

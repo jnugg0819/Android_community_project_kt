@@ -1,12 +1,17 @@
 package com.mamba.kt_community.Fragment
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,7 +29,6 @@ class SearchFragment : Fragment() {
     //view
     private var recyclerView:RecyclerView?=null
     private lateinit var searchFmEdt:EditText
-    private lateinit var searchFmBtn:Button
     //adapter
     private var searchAdapter:SearchAdapter?=null
 
@@ -34,8 +38,9 @@ class SearchFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val rootView=inflater.inflate(R.layout.fragment_search, container, false)
-        searchFmEdt=rootView.findViewById(R.id.search_fm_search_edt)
-        searchFmBtn=rootView.findViewById(R.id.search_fm_search_btn)
+
+        //searchView 초기화
+        searchFmEdt=rootView.findViewById(R.id.search_fm_edt)
 
         //ViewModel 가져오기
         viewModel=activity!!.application!!.let {
@@ -49,11 +54,33 @@ class SearchFragment : Fragment() {
         val layoutManager=GridLayoutManager(activity,1)
         recyclerView!!.layoutManager=layoutManager
 
-        //search버튼 눌렀을시 해당 텍스트 넘겨줌
-        searchFmBtn.setOnClickListener {
-            viewModel!!.selectSearchAll(searchFmEdt.text.toString(),recyclerView!!,searchAdapter!!)
-        }
 
+        //search버튼 눌렀을시 해당 텍스트 넘겨줌과 동시에 검색어저장
+        /*searchFmBtn.setOnClickListener {
+            viewModel!!.selectSearchAll(searchFmEdt.text.toString(),recyclerView!!,searchAdapter!!)
+        }*/
+
+        searchFmEdt.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(p0: Editable?) {
+                if(searchFmEdt.text.toString().isEmpty()){
+                    searchAdapter!!.clearData()
+                    recyclerView!!.adapter=searchAdapter
+                }else{
+                    viewModel!!.selectSearchAll(searchFmEdt.text.toString(),recyclerView!!,searchAdapter!!)
+                }
+
+
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+        })
         return rootView
     }
 

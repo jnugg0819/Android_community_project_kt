@@ -272,7 +272,6 @@ class UploadActivity : AppCompatActivity() {
                     if (uploadResponse.response) {
                         //val view=LayoutInflater.from(this@UploadActivity).inflate(R.)
                         progressDialog!!.dismiss()
-
                         finish()
 
                     } else {

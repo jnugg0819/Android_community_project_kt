@@ -5,9 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.mamba.kt_community.ItemClickListener.OnSearchItemClickListener
 import com.mamba.kt_community.R
 import com.mamba.kt_community.data.data.board.Board
@@ -60,6 +63,11 @@ RecyclerView.Adapter<SearchAdapter.ViewHolder>(), OnSearchItemClickListener{
         return items[position]
     }
 
+    fun clearData(){
+        this.items.clear()
+    }
+
+
     fun setItem(position: Int, item: Board) {
         items[position] = item
     }
@@ -71,13 +79,13 @@ RecyclerView.Adapter<SearchAdapter.ViewHolder>(), OnSearchItemClickListener{
         private val searchTitle=searchView.findViewById<TextView>(R.id.search_item_title)
         private val searchDate=searchView.findViewById<TextView>(R.id.search_item_date)
         private val searchLikeCnt=searchView.findViewById<TextView>(R.id.search_item_like_cnt)
-        private val searchlyt=searchView.findViewById<TextView>(R.id.search_item_lyt)
+        //private val searchlyt=searchView.findViewById<LinearLayout>(R.id.search_item_lyt)
 
         init {
-            searchlyt.setOnClickListener { view->
+           /* searchlyt.setOnClickListener { view->
                 val position=adapterPosition
                 listener.searchItemClick(this@ViewHolder,view,position)
-            }
+            }*/
 
         }
 
@@ -85,9 +93,17 @@ RecyclerView.Adapter<SearchAdapter.ViewHolder>(), OnSearchItemClickListener{
 
         fun setItem(item:Board){
 
+
             searchTitle.text=item.title
             searchDate.text=item.createdDatetime
             searchLikeCnt.text= item.likeCnt.toString()
+
+            //user profile image
+            Glide.with(searchView.context)
+                .load("http://192.168.35.27:8080/timelineGetImage?boardIdx=" + item.boardIdx +"&idx="+ item.fileList!![0].idx)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .into(searchImage)
 
         }
 
