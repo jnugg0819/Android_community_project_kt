@@ -5,6 +5,12 @@
 ------------------------------
 
 
+## 만들게된 배경
+
+
+**같이 자취를 하던 친구가 있었는데 친구와 노래듣는 취향이 비슷했다. 그래서 서로 유튜브를 통해 음악을 공유하게됬고
+그래서 언제 어디서든지 유튜브를 통해 음악공유할 수 있었으면 했다. 그래서 유튜브API를 통한 커뮤니티를 만들어 볼까 생각했다.**   
+
 
 
 ## 로그인
@@ -54,7 +60,8 @@
 1. 로그인, 회원가입
  * 로그인은 FireBaseAuth를 이용해서 구현해줬다. 왜 로그인만 따로 FirebaseAuth를 썻냐면 password를 잃어버렸을시 SMTP로   
   해당 메일로 메일을 보내 패스워드를 변경해야된다.  FireBaseAuthentication을 이용하면 회원가입부터 로그인, 패스워드분실  
-  까지 쉽게 구현가능하다.
+  까지 쉽게 구현가능하다.   
+
 
 2. 댓글, 답글 달기
  * 댓글 및 답글 달기는 ViewModel과 LiveData를 이용했다. 기본적으로 Activity에서 화면이 돌아가거나 다시생성 되게된다면
@@ -116,7 +123,8 @@
            masterReplyAdapter.notifyDataSetChanged()
        })
 
-   ```
+   ```   
+
 
 
   3. 좋아요 누르고 좋아요 버튼 유지
@@ -188,7 +196,8 @@
     }
 
 
-   ```
+   ```   
+
 
    4. 마이페이지 이미지 업데이트 및 , 본인이 올리 게시물 보기
 
@@ -270,9 +279,10 @@
  등록된 사진은 밑에 날짜별로 저장해뒀다.
 
 
-  <img src="https://github.com/jnugg0819/My_imgae_repo/blob/master/Github/gif/mypage_image_insert.gif" width="300px" height="450px"></img>
+  <img src="https://github.com/jnugg0819/My_imgae_repo/blob/master/Github/gif/mypage_image_insert.png" width="300px" height="450px"></img>
 
-물론 이것은 dev라 윈도우즈 환경에서 실행됬다 실제는 Centos리눅스 환경에서 실행된다.
+물론 이것은 dev라 윈도우즈 환경에서 실행됬다 실제는 Centos리눅스 환경에서 실행된다.   
+
 
 
 
@@ -323,18 +333,8 @@
 사용자입장에서 단순히 해당항목만 작성해서 공유한다는것이 너무 단조롭다... 커뮤니티 사이트인 op.gg를 보면 밑에 그림과 같이 서식을 사용 할 수있다.
 다음 수정은 이런식으로 구현해 봐야겠다.
 
-<img src="https://github.com/jnugg0819/My_imgae_repo/blob/master/Github/gif/op_gg.png" width="300px" height="450px"></img>
+<img src="https://github.com/jnugg0819/My_imgae_repo/blob/master/Github/gif/op_gg.png" width="500px" height="450px"></img>
 
-
-
-
-
-
-## 만들게된 배경
-
-
-**같이 자취를 하던 친구가 있었는데 친구와 노래듣는 취향이 비슷했다. 그래서 서로 유튜브를 통해 음악을 공유하게됬고
-그래서 생각했다 "언제 어디서든지 친구와 정보를 공유할 수 있는 커뮤니티를 만들자!!"**
 
 
 ---
