@@ -122,7 +122,7 @@
   3. 좋아요 누르고 좋아요 버튼 유지
    * 가장 생각을 많이 한 부분이었다 Client ,Server 에서 많이 생각을 했던 부분이 아닌가 싶다. 밑에는 클라이언트부터 서버까지 간단한 알고리즘이다.
 
-   <img src="https://github.com/jnugg0819/My_imgae_repo/blob/master/Github/gif/like_algo.png" width="600px" height="300px"></img>
+   <img src="https://github.com/jnugg0819/My_imgae_repo/blob/master/Github/gif/like_algo.png" width="800px" height="300px"></img>
 
 
 
