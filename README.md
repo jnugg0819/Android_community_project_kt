@@ -299,6 +299,7 @@
   }
 
   private fun uploadDataBase() {
+
     //Multipart 선언및 list생성(여러장의 사진을 넣어야 되기때문)
     var part: MultipartBody.Part
     val listMultipartBody = ArrayList<MultipartBody.Part>()
@@ -311,7 +312,7 @@
           listMultipartBody.add(part)
       }
 
-      //그후 나머지 데이터들과 함계 이미지를 list형태로 보내준다음 서버에서는 Iterator로 돌리면서 저장해주면 된다.
+      //그후 나머지 데이터들과 함께 이미지를 list형태로 보내준다음 서버에서는 Iterator로 돌리면서 저장해주면 된다.
       myAPI!!.insertUpload(
                   requestUserId,
                   requestGenre,
