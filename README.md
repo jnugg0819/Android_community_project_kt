@@ -1,6 +1,11 @@
 유튜브를 이용한 음악공유 커뮤니티
 ===============================
 
+개발기간 **2019-08~현재(유지보수중)**
+------------------------------
+
+
+
 
 ## 로그인
 
@@ -46,9 +51,71 @@
 
 ## 각 기능 설명
 
-1. 로그인
+1. 로그인, 회원가입
  * 로그인은 FireBaseAuth를 이용해서 구현해줬다. 왜 로그인만 따로 FirebaseAuth를 썻냐면 password를 잃어버렸을시 SMTP로   
- 해당 메일로 메일을 보내 패스워드를 변경해야된다. .이 FireBaseAuthentication을 이용하면 회원가입부터 로그인, 패스워드분실   까지 쉽게 구현가능하다.
+  해당 메일로 메일을 보내 패스워드를 변경해야된다.  FireBaseAuthentication을 이용하면 회원가입부터 로그인, 패스워드분실  
+  까지 쉽게 구현가능하다.
+
+2. 댓글, 답글 달기
+ * 댓글 및 답글 달기는 ViewModel과 LiveData를 이용했다. 기본적으로 Activity에서 화면이 돌아가거나 다시생성 되게된다면
+   리소스가 다 날아가기 때문에 OnSaveInstanceState를 사용한다. 하지만 이 함수는 작은 데이터만 효율적으로 관리 할 수 있다.
+   만약 대량의데이터가 저장되고 다시 불러오는 과정을 거친다면 엄청난 리소스가 할애 될것이다. 그래서 나온게 ViewModel이다.
+   Activity 생명주기와 상관 없이 Activity폐기될때까지 유지 가능하다. 밑에 코드는 주요 코드 내용이다.
+
+   MasterReplyActivity.kt
+   ```
+   //Koin(DI)로 한번 ViewModel을 Inject해줘봤다.
+    val viewModel:MasterReplyViewModel by viewModel()
+
+     override fun onCreate(savedInstanceState: Bundle?) {
+       ...중략...
+
+       //게시물 번호로 해당 게시물 댓글 가져오기
+       viewModel.getMasterReply(boardIdx.toInt())
+
+     }
+   ```
+   MasterReplyViewModel.kt
+   ```
+   //private으로 지정 외부 접근방지
+   private val _masterReplyGetLiveData = MutableLiveData<ReplyGetResponse>()
+
+  //외부접근 가능용
+    val masterReplyGetLiveData: LiveData<ReplyGetResponse>
+        get() = _masterReplyGetLiveData
+
+  //댓글정보 가져오기
+    fun getMasterReply(boardIdx: Int) {
+            addDisposable(
+                model.getMasterReply(boardIdx)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        it.run {
+                            if(response.size>0){                    
+                                Log.d("getReply","받기성공")
+                                //댓글이 존재하면 data를 Post해줌으로 Observe에게 신호를 보냄
+                                _masterReplyGetLiveData.postValue(this)
+                            }
+                        }
+
+                    },
+                        {
+                            Log.d("getReply","받기실패")
+                        }
+                    ))
+        }
+   ```
+   MasterReplyActivity.kt
+   ```
+   //관찰하고있던 객체에 신호가 들어오면 어댑터에 데이터를 갱신해줌
+   viewModel.masterReplyGetLiveData.observe(this, Observer {
+           masterReplyAdapter.setItems(it.response)
+           masterReplyAdapter.notifyDataSetChanged()
+       })
+
+   ```
+
 
 ## 만들게된 배경
 
@@ -75,8 +142,6 @@
   * CI/CD(jenkins), Google cloud platform(Centos7)
 
 ---
-
-개발기간 **2019-08~현재(유지보수중)**
 
 * 블로그 링크: <https://kanio.tistory.com/>
 
