@@ -227,8 +227,8 @@
 
   RestController.java(Spring)
   ```
-  //MyPage의 사진 가져오기
-  //response값에 해당 사진이 binary값으로 ouput된다.
+    //MyPage의 사진 가져오기
+    //response값에 해당 사진이 binary값으로 ouput된다.
 		@RequestMapping(value="/getMyPageImage", method=RequestMethod.GET)
 		public void selectMyPageGetImage(@RequestParam("creatorId") String creatorId , HttpServletResponse response) throws Exception{
 
@@ -342,6 +342,32 @@
 다음 수정은 이런식으로 구현해 봐야겠다.
 
 <img src="https://github.com/jnugg0819/My_imgae_repo/blob/master/Github/gif/op_gg.png" width="500px" height="450px"></img>
+
+
+6. 검색
+* text가 바뀔때마다 서버에서 해당 검색어를 검색한다.
+
+```
+
+searchFmEdt.addTextChangedListener(object : TextWatcher{
+        ...중략...
+          override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+              if(searchFmEdt.text.toString().isEmpty()){
+                  searchAdapter!!.clearData()
+                  recyclerView!!.adapter=searchAdapter
+              }else{
+                  viewModel!!.selectSearchAll(searchFmEdt.text.toString(),recyclerView!!,searchAdapter!!)
+              }
+
+          }
+
+      })
+
+
+```
+
+레포지토리에 보면 RxKotlin_observable이 있는데 보면 I/O ObserveOn하기전에 showProgress하는것을 볼 수있다. 그리고 map을 이용해서 데이터 검색을하고 마지막으로 hideProgress , adapter연결 그리고 BackPressure방지하기위해 Observable대신 Flowable을 사용했지만 공급량이 많지않을땐 Observable 추천(button-> LATEST, editTextChange-> BUFFER), debounc를통한 timeout설정
+
 
 
 
