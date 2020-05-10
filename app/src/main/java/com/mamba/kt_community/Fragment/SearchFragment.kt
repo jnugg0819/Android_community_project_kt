@@ -19,6 +19,7 @@ import com.mamba.kt_community.Adapter.search.SearchAdapter
 
 import com.mamba.kt_community.R
 import com.mamba.kt_community.data.data.viewmodel.HomeViewModel
+import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_search.*
 
 
@@ -38,6 +39,7 @@ class SearchFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val rootView=inflater.inflate(R.layout.fragment_search, container, false)
+
 
         //searchView 초기화
         searchFmEdt=rootView.findViewById(R.id.search_fm_edt)
@@ -62,12 +64,7 @@ class SearchFragment : Fragment() {
 
         searchFmEdt.addTextChangedListener(object : TextWatcher{
             override fun afterTextChanged(p0: Editable?) {
-                if(searchFmEdt.text.toString().isEmpty()){
-                    searchAdapter!!.clearData()
-                    recyclerView!!.adapter=searchAdapter
-                }else{
-                    viewModel!!.selectSearchAll(searchFmEdt.text.toString(),recyclerView!!,searchAdapter!!)
-                }
+
 
 
             }
@@ -77,6 +74,12 @@ class SearchFragment : Fragment() {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if(searchFmEdt.text.toString().isEmpty()){
+                    searchAdapter!!.clearData()
+                    recyclerView!!.adapter=searchAdapter
+                }else{
+                    viewModel!!.selectSearchAll(searchFmEdt.text.toString(),recyclerView!!,searchAdapter!!)
+                }
 
             }
 

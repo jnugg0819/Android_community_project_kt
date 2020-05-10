@@ -53,6 +53,13 @@
 <img src="https://github.com/jnugg0819/My_imgae_repo/blob/master/Github/gif/boardLike_and_replycount.gif" width="300px" height="450px"></img>
 
 
+
+## 간단한 검색기능(ElasticSearch을 이용해 구현할 예정)
+
+<img src="https://github.com/jnugg0819/My_imgae_repo/blob/master/Github/gif/search.gif" width="300px" height="450px"></img>
+
+
+
 ---
 
 ## 각 기능 설명

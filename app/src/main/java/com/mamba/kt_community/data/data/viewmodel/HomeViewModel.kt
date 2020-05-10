@@ -157,7 +157,7 @@ class HomeViewModel:ViewModel(){
     fun getFifthTimeLine(recyclerView:RecyclerView,adapter:BoardAdapter){
         myAPI.getTimelineFifth().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : io.reactivex.Observer<BoardResponse> {
+            .subscribe(object : Observer<BoardResponse> {
                 override fun onSubscribe(d: Disposable) {
 
                 }
@@ -188,7 +188,7 @@ class HomeViewModel:ViewModel(){
     fun getSixthTimeLine(recyclerView:RecyclerView,adapter:BoardAdapter){
         myAPI.getTimelineSixth().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : io.reactivex.Observer<BoardResponse> {
+            .subscribe(object : Observer<BoardResponse> {
                 override fun onSubscribe(d: Disposable) {
 
                 }
@@ -220,7 +220,7 @@ class HomeViewModel:ViewModel(){
         myAPI.updateLike(boardIdx,userId,checker)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : io.reactivex.Observer<BoardLikeUpdateResponse> {
+            .subscribe(object : Observer<BoardLikeUpdateResponse> {
                 override fun onComplete() {
 
                 }
@@ -246,7 +246,7 @@ class HomeViewModel:ViewModel(){
         myAPI.insertLikeUserInfo(boardIdx,userId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object :io.reactivex.Observer<BoardLikeUpdateResponse>{
+            .subscribe(object :Observer<BoardLikeUpdateResponse>{
                 override fun onComplete() {
 
                 }
@@ -270,7 +270,7 @@ class HomeViewModel:ViewModel(){
         myAPI.deleteLikeUserInfo(boardIdx,userId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object :io.reactivex.Observer<BoardLikeUpdateResponse>{
+            .subscribe(object :Observer<BoardLikeUpdateResponse>{
                 override fun onComplete() {
 
                 }
@@ -295,7 +295,7 @@ class HomeViewModel:ViewModel(){
         myAPI.selectLikeUserInfo(userId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object :io.reactivex.Observer<BoardLikeGetUserInfoResponse>{
+            .subscribe(object :Observer<BoardLikeGetUserInfoResponse>{
                 override fun onComplete() {
 
                 }
@@ -322,7 +322,7 @@ class HomeViewModel:ViewModel(){
         myAPI.selectSearchAll(searchTxt)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object :io.reactivex.Observer<SearchResponse>{
+            .subscribe(object :Observer<SearchResponse>{
 
 
                 override fun onSubscribe(d: Disposable) {
