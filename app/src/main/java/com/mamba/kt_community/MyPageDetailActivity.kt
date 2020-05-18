@@ -28,9 +28,6 @@ class MyPageDetailActivity : AppCompatActivity() {
 
     companion object {
         private const val PICK_IMAGE_REQUEST_DETAILE = 101
-
-
-
     }
 
     //사진존재여부 확인

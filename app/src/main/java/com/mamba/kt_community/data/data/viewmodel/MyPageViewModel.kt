@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.mamba.kt_community.Adapter.board.BoardAdapter
+import com.mamba.kt_community.Fragment.AccountFragment
 import com.mamba.kt_community.HomeActivitty
 import com.mamba.kt_community.MyPageDetailActivity
 import com.mamba.kt_community.data.data.mypage.MyPageInfo
@@ -99,7 +100,7 @@ class MyPageViewModel:ViewModel(){
                 }
 
                 override fun onComplete() {
-                    HomeActivitty.accountFragment!!.getUserImage()
+                    //HomeActivitty!!.getUserImage()
                     myPageDetailActivity.finish()
                 }
 

@@ -23,24 +23,28 @@ import kotlin.system.exitProcess
 
 class HomeActivitty : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
-    companion object{
-        var homeFragment = HomeFragment()
-        var searchFragment: SearchFragment? = null
-        var accountFragment: AccountFragment? = null
+    companion object {
+
 
         //좋아요 누른 사람들 정보(ViewModel에서 접근)
-        lateinit var userInfoList:ArrayList<BoardLikeUserInfo>
+        lateinit var userInfoList: ArrayList<BoardLikeUserInfo>
     }
 
-    private var viewModel: HomeViewModel?=null
+    var homeFragment = HomeFragment()
+    var searchFragment :SearchFragment?=null
+    var accountFragment :AccountFragment?=null
+
+    private var viewModel: HomeViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        viewModel=this.application!!.let {
+        viewModel = this.application!!.let {
             ViewModelProvider(
-                viewModelStore, ViewModelProvider.AndroidViewModelFactory(it)).get(HomeViewModel::class.java)}
+                viewModelStore, ViewModelProvider.AndroidViewModelFactory(it)
+            ).get(HomeViewModel::class.java)
+        }
 
         //좋아요 유저정보 불러오기
         viewModel!!.getLikeUserInfo(currentUserEmail)
@@ -54,63 +58,41 @@ class HomeActivitty : AppCompatActivity(), BottomNavigationView.OnNavigationItem
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-
             R.id.tab1 -> {
-                if (homeFragment == null) {
-                    homeFragment = HomeFragment()
-                    supportFragmentManager.beginTransaction().add(R.id.home_container, homeFragment)
-                        .commit()
+                if(homeFragment==null){
+                    homeFragment= HomeFragment()
+                    supportFragmentManager.beginTransaction().add(R.id.home_container, homeFragment).commit()
                 }
-                if (homeFragment != null) supportFragmentManager.beginTransaction().show(
-                    homeFragment
-                ).commit()
-                if (searchFragment != null) supportFragmentManager.beginTransaction().hide(
-                    searchFragment!!
-                ).commit()
-                if (accountFragment != null) supportFragmentManager.beginTransaction().hide(
-                    accountFragment!!
-                ).commit()
+                supportFragmentManager.beginTransaction().show(homeFragment).commit()
+                supportFragmentManager.beginTransaction().hide(searchFragment!!).commit()
+                supportFragmentManager.beginTransaction().hide(accountFragment!!).commit()
             }
             R.id.tab2 -> {
-                if (searchFragment == null) {
-                    searchFragment = SearchFragment()
-                    supportFragmentManager.beginTransaction()
-                        .add(R.id.home_container, searchFragment!!).commit()
+                if(searchFragment==null){
+                    searchFragment= SearchFragment()
+                    supportFragmentManager.beginTransaction().add(R.id.home_container, searchFragment!!).commit()
                 }
-                if (searchFragment != null) supportFragmentManager.beginTransaction().show(
-                    searchFragment!!
-                ).commit()
-                if (homeFragment != null) supportFragmentManager.beginTransaction().hide(
-                    homeFragment
-                ).commit()
-                if (accountFragment != null) supportFragmentManager.beginTransaction().hide(
-                    accountFragment!!
-                ).commit()
+                supportFragmentManager.beginTransaction().hide(homeFragment).commit()
+                supportFragmentManager.beginTransaction().show(searchFragment!!).commit()
+                if(accountFragment!=null) supportFragmentManager.beginTransaction().hide(accountFragment!!).commit()
             }
             R.id.tab3 -> {
-                if (accountFragment == null) {
-                    accountFragment = AccountFragment()
-                    supportFragmentManager.beginTransaction()
-                        .add(R.id.home_container, accountFragment!!).commit()
+                if(accountFragment==null){
+                    accountFragment= AccountFragment()
+                    supportFragmentManager.beginTransaction().add(R.id.home_container, accountFragment!!).commit()
                 }
-                if (accountFragment != null) supportFragmentManager.beginTransaction().show(
-                    accountFragment!!
-                ).commit()
-                if (homeFragment != null) supportFragmentManager.beginTransaction().hide(
-                    homeFragment
-                ).commit()
-                if (searchFragment != null) supportFragmentManager.beginTransaction().hide(
-                    searchFragment!!
-                ).commit()
+                supportFragmentManager.beginTransaction().hide(homeFragment).commit()
+                if(searchFragment!=null) supportFragmentManager.beginTransaction().hide(searchFragment!!).commit()
+                supportFragmentManager.beginTransaction().show(accountFragment!!).commit()
             }
         }
         return true
     }
 
     fun logoutLogin() {
-        this@HomeActivitty.finishAffinity()
+        //this@HomeActivitty.finishAffinity()
         val intent = Intent(this@HomeActivitty, BranchActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
     }
 }

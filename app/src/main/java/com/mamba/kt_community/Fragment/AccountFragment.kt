@@ -39,6 +39,9 @@ class AccountFragment : Fragment() {
     private var homeActivitty:HomeActivitty?=null
 
     private lateinit var mypageUserImage:CircleImageView
+    private lateinit var mypageUserId:TextView
+    private lateinit var mypageLogout:TextView
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,12 +52,9 @@ class AccountFragment : Fragment() {
 
         homeActivitty = activity as HomeActivitty?
 
-
-
-        val mypageUserId=rootView.findViewById<TextView>(R.id.mypage_userId)
-        mypageUserImage=rootView.findViewById<CircleImageView>(R.id.mypage_user_image)
-        val mypageLogout=rootView.findViewById<TextView>(R.id.mypage_user_logout)
-
+        mypageUserId=rootView.findViewById(R.id.mypage_userId)
+        mypageUserImage=rootView.findViewById(R.id.mypage_user_image)
+        mypageLogout=rootView.findViewById(R.id.mypage_user_logout)
 
         mypageUserId.text=currentUserEmail
 
@@ -62,8 +62,8 @@ class AccountFragment : Fragment() {
 
         mypageLogout.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
-        homeActivitty!!.logoutLogin()
-    }
+            homeActivitty!!.logoutLogin()
+        }
 
         mypageUserImage.setOnClickListener {
             val intent = Intent(homeActivitty, MyPageDetailActivity::class.java)
@@ -84,14 +84,18 @@ class AccountFragment : Fragment() {
         return rootView
     }
 
-    fun getUserImage(){
-        //userProfileIamge
-        Glide.with(activity!!.applicationContext)
-            .load("http://192.168.35.27:8080/getMyPageImage?creatorId=$currentUserEmail")
-            .error(R.drawable.ic_person_black_36dp)
-            .diskCacheStrategy(DiskCacheStrategy.NONE)
-            .skipMemoryCache(true)
-            .into(mypageUserImage)
-    }
+
+        fun getUserImage(){
+            //userProfileIamge
+            Glide.with(activity!!.applicationContext)
+                .load("http://192.168.35.27:8080/getMyPageImage?creatorId=$currentUserEmail")
+                .error(R.drawable.ic_person_black_36dp)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .into(mypageUserImage)
+        }
+
+
+
 
 }

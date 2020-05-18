@@ -16,8 +16,6 @@ import kotlinx.android.synthetic.main.activity_register.*
 class ForgetPassword : AppCompatActivity() {
 
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forget_password)
@@ -49,7 +47,5 @@ class ForgetPassword : AppCompatActivity() {
                 .setAction("확인", View.OnClickListener { finish() })
                 .show()
         }
-
-
     }
 }

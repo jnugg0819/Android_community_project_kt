@@ -40,7 +40,6 @@ class SearchFragment : Fragment() {
         // Inflate the layout for this fragment
         val rootView=inflater.inflate(R.layout.fragment_search, container, false)
 
-
         //searchView 초기화
         searchFmEdt=rootView.findViewById(R.id.search_fm_edt)
 

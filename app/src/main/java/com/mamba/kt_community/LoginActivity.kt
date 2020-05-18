@@ -31,10 +31,10 @@ import com.facebook.login.LoginBehavior
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.firebase.auth.FacebookAuthProvider
+import com.mamba.kt_community.BranchActivity.Companion.currentUserEmail
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import java.util.*
-
 
 class LoginActivity : AppCompatActivity() {
 
@@ -82,14 +82,15 @@ class LoginActivity : AppCompatActivity() {
         printHashKey(this)
     }
 
-    fun moveHomePage(){
+    private fun moveHomePage(){
         var currentUser=FirebaseAuth.getInstance().currentUser
         if(currentUser!=null){
+            currentUserEmail= FirebaseAuth.getInstance().currentUser!!.email!!
             startActivity(Intent(this,HomeActivitty::class.java))
         }
     }
 
-    fun facebookLogin(){
+    private fun facebookLogin(){
         LoginManager.getInstance().loginBehavior=LoginBehavior.WEB_VIEW_ONLY
         LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile","email"))
         LoginManager.getInstance().registerCallback(callbackManager,object:FacebookCallback<LoginResult>{
@@ -138,7 +139,6 @@ class LoginActivity : AppCompatActivity() {
                 moveHomePage()
             }
         }
-
     }
 
     private fun loginEmail(){
@@ -156,12 +156,10 @@ class LoginActivity : AppCompatActivity() {
                    .setPositiveButton("확인",null)
                    .show()
             }
-
-
         }
     }
 
-    fun printHashKey(pContext: Context) {
+    private fun printHashKey(pContext: Context) {
         try {
             val info = pContext.getPackageManager()
                 .getPackageInfo(pContext.getPackageName(), PackageManager.GET_SIGNATURES)
